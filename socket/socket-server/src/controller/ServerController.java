@@ -1,17 +1,20 @@
 package controller;
 
 import java.net.Socket;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 
 public class ServerController {
     private int port;
     private Socket socket;
     private ServerSocket serverSocket;
-    private InputStream in;
-    private OutputStream out;
+    private BufferedReader in;
+    private PrintWriter out;
 
     public ServerController (int port) {
         this.port = port;
@@ -31,8 +34,10 @@ public class ServerController {
     private void getIO () {
         try {
             this.socket = this.serverSocket.accept();
-            this.in = this.socket.getInputStream();
-            this.out = this.socket.getOutputStream();
+            this.in = new BufferedReader(
+                new InputStreamReader(this.socket.getInputStream())
+            );
+            this.out = new PrintWriter(this.socket.getOutputStream(), true);
             System.out.println("Socket server is accepting connections...");
         } catch (IOException e) {
             System.out.println("Error getting IO from socket");
@@ -44,12 +49,14 @@ public class ServerController {
     public void ioController() {
         try {
             this.getIO();
-            this.out.write("Connected to server - hit ^C to end\r\n".getBytes());
+            this.out.println("Connected to server - type quit to end");
             this.out.flush();
-            while(true) {
-                while(this.in.available() > 0) {
-                    System.out.println((char) this.in.read());
-                }
+            boolean socketRunning = true;
+            while(socketRunning) {
+                String inLine = this.in.readLine();
+                System.out.println();
+                if (inLine.equals("quit"))
+                    socketRunning = false;
             }
         } catch (IOException e) {
             System.out.println("Error getting using IO");
