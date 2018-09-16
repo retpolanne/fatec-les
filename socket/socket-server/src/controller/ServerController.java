@@ -49,14 +49,14 @@ public class ServerController {
     public void ioController() {
         try {
             this.getIO();
-            this.out.println("Connected to server - type quit to end");
+            //this.out.println("Connected to server - type quit to end");
             this.out.flush();
-            boolean socketRunning = true;
-            while(socketRunning) {
+            while(true) {
                 String inLine = this.in.readLine();
-                System.out.println();
+                System.out.println(inLine);
+                this.out.println("echo: " + inLine);
                 if (inLine.equals("quit"))
-                    socketRunning = false;
+                    break;
             }
         } catch (IOException e) {
             System.out.println("Error getting using IO");
