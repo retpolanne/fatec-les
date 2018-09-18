@@ -17,10 +17,10 @@ public class IOContext {
         this.ioStrategy = ioStrategy;
     }
 
-    public void attachIO () {
+    public void attachIO (boolean append) {
         try {
             this.ioStrategy.createReader(this.file);
-            this.ioStrategy.createWriter(this.file);
+            this.ioStrategy.createWriter(this.file, append);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,32 +2,31 @@ package iohelper.strategies;
 
 import iohelper.interfaces.IOStrategy;
 
+import java.io.File;
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.io.InputStreamReader;
-import java.net.Socket;
 
-public class SocketIOStrategy implements IOStrategy<Socket, String> {
+public class TextFileIOStrategy implements IOStrategy<File, String> {
     private BufferedReader inputReader;
     private PrintWriter outputWriter;
 
-    public void createReader (Socket socket) throws IOException {
+    public void createReader (File file) throws IOException {
         this.inputReader = new BufferedReader(
-            new InputStreamReader(socket.getInputStream())
+            new FileReader(file)
         );
     }
-    public void createWriter (Socket socket, boolean append) throws IOException {
-        this.outputWriter = new PrintWriter(socket.getOutputStream(), append);
+    public void createWriter (File file, boolean append) throws IOException {
+        this.outputWriter = new PrintWriter(
+            new FileWriter(file, append)
+        );
     }
 
     public String readLine () throws IOException {
-        if (this.inputReader.read() < 0) {
-            System.out.println("Connection closed by foreign host.");
-            return null;
-        }
         return this.inputReader.readLine();
     }
 

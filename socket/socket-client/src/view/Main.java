@@ -14,7 +14,7 @@ public class Main {
             Socket socket = new Socket(host, port);
             IOContext ioContext = new IOContext(socket);
             ioContext.setIOStrategy(new SocketIOStrategy());
-            ioContext.attachIO();
+            ioContext.attachIO(true);
             ioContext.write("GET", false);
             System.out.println(ioContext.readWhole());
         } catch (IOException e) {
