@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class ExampleServlet extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
     @Override
     public void doGet (
         HttpServletRequest request, HttpServletResponse response
@@ -35,5 +35,12 @@ public class ExampleServlet extends HttpServlet {
         } finally {
             out.close();  // Always close the output writer
         }
+    }
+
+    @Override
+    public void doPost (
+        HttpServletRequest request, HttpServletResponse response
+    ) throws IOException, ServletException {
+        System.out.println(request);
     }
 }

@@ -28,6 +28,7 @@ services:
       DB_NAME: fatecservlets
       DB_CLASS: com.mysql.jdbc.Driver
       DB_TYPE: mysql
+      HASHING: MD5
 
 volumes:
   db_data:
