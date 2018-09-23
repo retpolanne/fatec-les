@@ -25,10 +25,15 @@ public class LoginServlet extends HttpServlet {
         PrintWriter htmlOut = response.getWriter();
         try {
             Usuario usuario = loginController.makeLogin(username, password);
-            htmlOut.println("<html><body><h3>User was found!</h3></body></html>");
+            session.setAttribute("userMessage", "User was found!");
+            session.setAttribute("userInfo", usuario);
+            session.setAttribute("loggedIn", true);
         } catch (UnauthorizedUserException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            htmlOut.println("<html><body><h3>Ooops, user not found!</h3></body></html>");
+            session.setAttribute("userMessage", "Oops, user was not found!");
+            session.setAttribute("loggedIn", false);
+        } finally {
+            response.sendRedirect("./index.jsp");
         }
     }
 }

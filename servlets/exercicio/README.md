@@ -13,3 +13,6 @@ Se não tiver, execute o `./run.sh` em um terminal e `./extract-servlet.sh` em o
 Execute `./recover-sql-local.sh` para criar e atualizar o banco de dados (obs: é realizado um DROP na tabela, utilize com precaução)
 
 No final, acesse `localhost:8080/CheckLogin/`
+
+## TODO
+[ ] Parametrizar o context.xml
