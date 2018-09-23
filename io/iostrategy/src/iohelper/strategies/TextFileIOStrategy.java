@@ -15,21 +15,26 @@ public class TextFileIOStrategy implements IOStrategy<File, String> {
     private BufferedReader inputReader;
     private PrintWriter outputWriter;
 
+    @Override
     public void createReader (File file) throws IOException {
         this.inputReader = new BufferedReader(
             new FileReader(file)
         );
     }
+
+    @Override
     public void createWriter (File file, boolean append) throws IOException {
         this.outputWriter = new PrintWriter(
             new FileWriter(file, append)
         );
     }
 
+    @Override
     public String readLine () throws IOException {
         return this.inputReader.readLine();
     }
 
+    @Override
     public List<String> readWhole () throws IOException {
         String line;
         List<String> lines = new ArrayList<String>();
@@ -42,20 +47,24 @@ public class TextFileIOStrategy implements IOStrategy<File, String> {
         return lines;
     }
 
+    @Override
     public void write (String message) throws IOException {
         this.outputWriter.println(message);
     }
 
+    @Override
     public void writeBulk (List<String> messages) throws IOException {
         for (String message : messages) {
             this.outputWriter.println(message);
         }
     }
 
+    @Override
     public void closeReader () throws IOException {
         this.inputReader.close();
     }
 
+    @Override
     public void closeWriter () throws IOException {
         this.outputWriter.close();
     }

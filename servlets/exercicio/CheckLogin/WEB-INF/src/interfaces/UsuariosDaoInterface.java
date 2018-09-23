@@ -1,6 +1,6 @@
 package interfaces;
 
-import model.Usuario;
+import models.Usuario;
 
 public interface UsuariosDaoInterface {
     public Usuario search (String usuario, String password);

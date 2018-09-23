@@ -11,9 +11,10 @@ public class Security {
             this.md = MessageDigest.getInstance(System.getenv("HASHING"));
             md.update(password.getBytes());
             byte[] digest = md.digest();
-            return DatatypeConverter.printHexBinary(digest).toUpperCase();
+            return DatatypeConverter.printHexBinary(digest);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

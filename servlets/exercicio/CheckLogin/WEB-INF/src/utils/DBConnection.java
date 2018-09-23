@@ -8,7 +8,7 @@ public class DBConnection {
     private static Connection conn;
 
     public static Connection getConnection() {
-        if (this.conn == null) {
+        if (conn == null) {
             instantiateConnection();
         }
         return conn;
