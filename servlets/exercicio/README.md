@@ -15,4 +15,4 @@ Execute `./recover-sql-local.sh` para criar e atualizar o banco de dados (obs: Ã
 No final, acesse `localhost:8080/CheckLogin/`
 
 ## TODO
-[ ] Parametrizar o context.xml
+- [ ] Parametrizar o context.xml
