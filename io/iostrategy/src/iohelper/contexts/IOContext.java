@@ -5,11 +5,11 @@ import java.util.List;
 
 import iohelper.interfaces.IOStrategy;
 
-public class IOContext {
+public class IOContext<T1, T2> {
     private IOStrategy ioStrategy;
-    private Object file;
+    private T2 file;
 
-    public IOContext (Object file) {
+    public IOContext (T2 file) {
         this.file = file;
     }
 
@@ -35,7 +35,7 @@ public class IOContext {
         }
     }
 
-    public String readLine () {
+    public T1 readLine () {
         try {
             return this.ioStrategy.readLine();
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class IOContext {
             return null;
         }
     }
-    public List<String> readWhole () {
+    public List<T1> readWhole () {
         try {
             return this.ioStrategy.readWhole();
         } catch (IOException e) {
@@ -51,9 +51,17 @@ public class IOContext {
             return null;
         }
     }
-    public void write (String message, boolean append) {
+    public void write (T1 message) {
         try {
-            this.ioStrategy.write(message, append);
+            this.ioStrategy.write(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeBulk (List<T1> messages) {
+        try {
+            this.ioStrategy.writeBulk(messages);
         } catch (IOException e) {
             e.printStackTrace();
         }

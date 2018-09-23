@@ -10,37 +10,44 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.lang.ClassNotFoundException;
 
 
 public class ObjectFileIOStrategy implements IOStrategy<File, Object> {
     private ObjectInputStream inputReader;
-    private FileInputStream outputWriter;
+    private ObjectOutputStream outputWriter;
 
     public void createReader (File file) throws IOException {
-        this.inputReader = new BufferedReader(
-            new ObjectInputStream(
-                new FileInputStream(file)
-            )
+        this.inputReader = new ObjectInputStream(
+            new FileInputStream(file)
         );
     }
     public void createWriter (File file, boolean append) throws IOException {
-        this.outputWriter = new PrintWriter(
-            new ObjectOutputStream(
-                new FileOutputStream(file)
-            )
+        this.outputWriter = new ObjectOutputStream(
+            new FileOutputStream(file)
         );
     }
 
     public Object readLine () throws IOException {
-        return this.inputReader.readLine();
+        try {
+            return this.inputReader.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Object> readWhole () throws IOException {
-        String line;
-        List<String> lines = new ArrayList<String>();
+        Object line;
+        List<Object> lines = new ArrayList<Object>();
         while (true) {
-            line = this.inputReader.readLine();
-            if (line == null || line.isEmpty())
+            try {
+                line = this.inputReader.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                line = null;
+            }
+            if (line == null)
                 break;
             lines.add(line);
         }
@@ -48,7 +55,13 @@ public class ObjectFileIOStrategy implements IOStrategy<File, Object> {
     }
 
     public void write (Object message) throws IOException {
-        this.outputWriter.println(message);
+        this.outputWriter.writeObject(message);
+    }
+
+    public void writeBulk (List<Object> messages) throws IOException {
+        for (Object message : messages) {
+            this.outputWriter.writeObject(message);
+        }
     }
 
     public void closeReader () throws IOException {

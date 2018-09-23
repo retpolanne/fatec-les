@@ -47,6 +47,12 @@ public class SocketIOStrategy implements IOStrategy<Socket, String> {
         this.outputWriter.println(message);
     }
 
+    public void writeBulk (List<String> messages) throws IOException {
+        for (String message : messages) {
+            this.outputWriter.println(message);
+        }
+    }
+
     public void closeReader () throws IOException {
         this.inputReader.close();
     }

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 
-public class TextFileIOStrategy implements IOStrategy<File, String> {
+public class BufferedTextFileIOStrategy implements IOStrategy<File, String> {
     private BufferedReader inputReader;
     private BufferedWriter outputWriter;
 
@@ -44,6 +44,13 @@ public class TextFileIOStrategy implements IOStrategy<File, String> {
 
     public void write (String message) throws IOException {
         this.outputWriter.append(message);
+        this.outputWriter.flush();
+    }
+
+    public void writeBulk (List<String> messages) throws IOException {
+        for (String message : messages) {
+            this.outputWriter.append(message);
+        }
         this.outputWriter.flush();
     }
 

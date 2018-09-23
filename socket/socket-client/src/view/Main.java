@@ -12,10 +12,10 @@ public class Main {
     
         try {
             Socket socket = new Socket(host, port);
-            IOContext ioContext = new IOContext(socket);
+            IOContext ioContext = new IOContext<String, Socket>(socket);
             ioContext.setIOStrategy(new SocketIOStrategy());
             ioContext.attachIO(true);
-            ioContext.write("GET", false);
+            ioContext.write("GET");
             System.out.println(ioContext.readWhole());
         } catch (IOException e) {
             e.printStackTrace();
