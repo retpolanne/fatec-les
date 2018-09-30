@@ -1,0 +1,13 @@
+<Context>
+    <Resource 
+        name="jdbc/fatecservlets"
+        auth="Container"
+        type="javax.sql.DataSource"
+        username="fatec"
+        password="fatec"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://db:3306/fatecservlets"
+        maxActive="15"
+        maxIdle="3">
+    </Resource>
+</Context>

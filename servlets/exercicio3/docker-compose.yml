@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+    - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: fatecservlets
+      MYSQL_USER: fatec
+      MYSQL_PASSWORD: fatec
+  
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./Aluno:/usr/local/tomcat/webapps/Aluno
+    - ./alunos.sql:/tmp/alunos.sql
+    - ./recover-sql.sh:/tmp/recover-sql.sh
+    ports:
+    - "8080:8080"
+    environment:
+      DB_HOST: db:3306
+      DB_USER: fatec
+      DB_PASSWORD: fatec
+      DB_NAME: fatecservlets
+      DB_CLASS: com.mysql.jdbc.Driver
+      DB_TYPE: mysql
+      HASHING: MD5
+
+volumes:
+  db_data:
+    driver: local
