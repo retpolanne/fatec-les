@@ -3,6 +3,7 @@ package servlets;
 import javax.lang.model.util.ElementScanner6;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +36,7 @@ public class AlunoServlet extends HttpServlet {
         }
     }
 
-    /*@Override
+    @Override
     public void doGet( 
         HttpServletRequest request, HttpServletResponse response
     ) throws IOException, ServletException {
@@ -46,14 +47,6 @@ public class AlunoServlet extends HttpServlet {
         } catch (GenericDAOException e) {
             session.setAttribute("message", "Erro criando lista de alunos");
         }
-        request.getRequestDispatcher("/aluno.jsp").forward(request, response);
-    }*/
-
-    /*@Override
-    public void doGet( 
-        HttpServletRequest request, HttpServletResponse response
-    ) throws IOException, ServletException {
-        HttpSession session = request.getSession();
         String idTxt = request.getParameter("txtId");
         if (idTxt == null)
             idTxt = "0";
@@ -90,8 +83,10 @@ public class AlunoServlet extends HttpServlet {
                     session.setAttribute("message", "Algo deu errado!");
             }
         }
-        response.sendRedirect("/aluno.jsp");
-    }*/
+        ServletContext sc = this.getServletContext();
+        RequestDispatcher rd = sc.getRequestDispatcher("/aluno.jsp");
+        rd.include(request, response);
+    }
 
     @Override
     public void doPost (
@@ -167,7 +162,7 @@ public class AlunoServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     session.setAttribute("message", "Algo deu errado!");
             }
-            response.sendRedirect("/aluno.jsp");
+            this.doGet(request, response);
         }
     }
 }
