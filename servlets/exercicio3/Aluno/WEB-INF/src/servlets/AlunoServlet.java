@@ -35,20 +35,63 @@ public class AlunoServlet extends HttpServlet {
         }
     }
 
-    @Override
+    /*@Override
     public void doGet( 
         HttpServletRequest request, HttpServletResponse response
     ) throws IOException, ServletException {
         HttpSession session = request.getSession();
         try {
             alunos = alunoController.showAll();
-            session.setAttribute("message", "Lista criada");
             session.setAttribute("alunoList", this.alunos);
         } catch (GenericDAOException e) {
             session.setAttribute("message", "Erro criando lista de alunos");
         }
         request.getRequestDispatcher("/aluno.jsp").forward(request, response);
-    }
+    }*/
+
+    /*@Override
+    public void doGet( 
+        HttpServletRequest request, HttpServletResponse response
+    ) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        String idTxt = request.getParameter("txtId");
+        if (idTxt == null)
+            idTxt = "0";
+        long id = Long.parseLong(idTxt);
+        Aluno aluno = new Aluno();
+        if (id != 0)
+            aluno.setId(id);
+        else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            session.setAttribute("message", "Algo deu errado!");
+        }
+
+        String cmd = request.getParameter("cmd");
+        
+        if (cmd == null) {
+            session.setAttribute("message", "Algo deu errado!");
+        } else {
+            switch (cmd) {
+                case "pesquisar":
+                    try {
+                        aluno = alunoController.search(id);
+                        session.setAttribute("alunoInfo", aluno);
+                        if (aluno != null)
+                            session.setAttribute("message", "Aluno encontrado");
+                        else
+                            session.setAttribute("message", "Aluno não encontrado");
+                    } catch (GenericDAOException e) {
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        session.setAttribute("message", "Erro pesquisando aluno");
+                    }
+                    break;
+                default:
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    session.setAttribute("message", "Algo deu errado!");
+            }
+        }
+        response.sendRedirect("/aluno.jsp");
+    }*/
 
     @Override
     public void doPost (
@@ -89,7 +132,8 @@ public class AlunoServlet extends HttpServlet {
         String cmd = request.getParameter("cmd");
         
         if (cmd == null) {
-            session.setAttribute("message", "Erro");
+            session.setAttribute("message", "Algo deu errado!");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             switch (cmd) {
                 case "adicionar":
@@ -97,6 +141,7 @@ public class AlunoServlet extends HttpServlet {
                         alunoController.createAluno(aluno);
                         session.setAttribute("message", "Aluno criado com sucesso");
                     } catch (GenericDAOException e) {
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                         session.setAttribute("message", "Erro ao criar registro aluno");
                     }
                     break;
@@ -105,19 +150,8 @@ public class AlunoServlet extends HttpServlet {
                         alunoController.updateAluno(aluno);
                         session.setAttribute("message", "Aluno atualizado com sucesso");
                     } catch (GenericDAOException e) {
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                         session.setAttribute("message", "Erro ao atualizar registro aluno");
-                    }
-                    break;
-                case "pesquisar":
-                    try {
-                        aluno = alunoController.search(id);
-                        session.setAttribute("alunoInfo", aluno);
-                        if (aluno != null)
-                            session.setAttribute("message", "Aluno encontrado");
-                        else
-                            session.setAttribute("message", "Aluno não encontrado");
-                    } catch (GenericDAOException e) {
-                        session.setAttribute("message", "Erro pesquisando aluno");
                     }
                     break;
                 case "remover":
@@ -125,11 +159,15 @@ public class AlunoServlet extends HttpServlet {
                         alunoController.delete(id);
                         session.setAttribute("message", "Aluno removido com sucesso");
                     } catch (GenericDAOException e) {  
+                        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                         session.setAttribute("message", "Erro ao remover aluno");
                     }
                     break;
+                default:
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    session.setAttribute("message", "Algo deu errado!");
             }
-            response.sendRedirect("/Aluno");
+            response.sendRedirect("/aluno.jsp");
         }
     }
 }

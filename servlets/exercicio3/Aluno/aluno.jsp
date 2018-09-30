@@ -39,15 +39,21 @@
                 <button class="btn waves-effect waves-light" type="submit" name="cmd" value="atualizar">
                     Atualizar
                 </button>
-                <button class="btn waves-effect waves-light" type="submit" name="cmd" value="pesquisar">
-                    Pesquisar 
-                </button>
                 <button class="btn waves-effect waves-light"ut type="submit" name="cmd" value="remover">
                     Remover
                 </button>
             </form>
             <% String message = (String) session.getAttribute("message"); %>
             <p>Status: <%=message %></p>
+        </div>
+        <div class="container" id="aluno-pesquisa">
+            <h4>Pesquisar aluno</h4>
+            <form action="/Aluno" method="GET">
+                Digite o ID: <input id="search" type="search" name="txtId"/>
+                <button class="btn waves-effect waves-light" type="submit" name="cmd" value="pesquisar">
+                    Pesquisar 
+                </button>
+            </form>
         </div>
         <div class="container" id="aluno-lista">
             <h4>Lista de alunos</h4>
