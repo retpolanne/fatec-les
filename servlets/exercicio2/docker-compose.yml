@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-    - ./CheckLogin:/usr/local/tomcat/webapps/CheckLogin
+    - ./Usuario:/usr/local/tomcat/webapps/Usuario
     - ./usuarios.sql:/tmp/usuarios.sql
     - ./recover-sql.sh:/tmp/recover-sql.sh
     ports:

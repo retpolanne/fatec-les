@@ -5,20 +5,12 @@
         <title>Usuarios</title>
     </head>
     <body>
-        <form action="./login" method="POST">
-            <h3>Input your login</h3>
-            <input type="text" name="txtLogin"/>
-            <input type="text" name="txtSenha"/>
-            <input type="submit" value="Submit"/>
-        </form>
-
         <div>
             <% 
                 Usuario user = (Usuario) session.getAttribute("userInfo");
                 if (user == null) {
                     session.setAttribute("userInfo", null);
                     session.setAttribute("loggedIn", false);
-                    session.setAttribute("userMessage", "Waiting for user login...");
                 }
                 boolean loggedIn = (boolean) session.getAttribute("loggedIn");
                 String userMessage = (String) session.getAttribute("userMessage");
@@ -30,9 +22,15 @@
                     <p>Nome: <%=user.getNome() %> </p>
                     <p>Email: <%=user.getEmail() %> </p>
                     <p>Telefone: <%=user.getTelefone() %> </p>
-                    <p>Perfil: <%=user.getPerfil() %> </p>
                 </div>
+            <% } else { %>
+                <h3>Redirecting to login...</h3>
+                <script>
+                    window.location.href = "/Usuario/login.jsp"
+                </script>
             <% } %>
+            <h3>Click <a href="/Usuario/login.jsp">here</a> to log in</h3>
+            <h3>Click <a href="/Usuario/cadastro.jsp">here</a> to sign up</h3>
         </div>
     </body>
 </html>

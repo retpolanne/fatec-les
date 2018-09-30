@@ -50,20 +50,17 @@ public class UsuariosDao implements UsuariosDaoInterface {
     @Override
     public String create (Usuario usuario) {
         String sql = "INSERT INTO USUARIOS (USUARIO, NOME, EMAIL, TELEFONE, PASSWORD) VALUES " +
-                     "(?, ?, ?, ?, ?) " +
-                     "OUTPUT INSERTED.USUARIO AS USUARIO"
+                     "(?, ?, ?, ?, ?)";
         String userName = null;
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuario.getUsuario());
-            stmt.setString(2, usuario.getName());
+            stmt.setString(2, usuario.getNome());
             stmt.setString(3, usuario.getEmail());
             stmt.setString(4, usuario.getTelefone());
             stmt.setString(5, usuario.getPassword());
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                userName = rs.getString("USUARIO");
-            }
+            stmt.executeUpdate();
+            return usuario.getUsuario();
         } catch (SQLException e) {
             e.printStackTrace();
         }

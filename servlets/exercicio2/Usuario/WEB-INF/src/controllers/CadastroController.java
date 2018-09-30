@@ -12,7 +12,7 @@ public class CadastroController {
     private UsuariosDaoInterface usuarioDao = new UsuariosDao();
     private Security secUtils = new Security();
 
-    public String createNewUser (
+    public Usuario createNewUser (
         String username, String name, String email, String telefone, String password
     ) throws UserAlreadyExistsException {
         password = secUtils.hashPassword(password);

@@ -25,15 +25,19 @@ public class LoginServlet extends HttpServlet {
         PrintWriter htmlOut = response.getWriter();
         try {
             Usuario usuario = loginController.makeLogin(username, password);
-            session.setAttribute("userMessage", "User was found!");
             session.setAttribute("userInfo", usuario);
+            session.setAttribute("userMessage", "User was found!");
             session.setAttribute("loggedIn", true);
+            response.sendRedirect("./index.jsp");
         } catch (UnauthorizedUserException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            session.setAttribute("userMessage", "Oops, user was not found!");
+            session.setAttribute(
+                "userMessage",
+                "Oops, user was not found! " + 
+                "Would you like to <a href=/Usuario/cadastro.jsp>sign up</a>?"
+            );
             session.setAttribute("loggedIn", false);
-        } finally {
-            response.sendRedirect("./index.jsp");
+            response.sendRedirect("./login.jsp");
         }
     }
 }

@@ -21,7 +21,7 @@ public class CadastroServlet extends HttpServlet {
         String username = request.getParameter("txtLogin");
         String name = request.getParameter("txtNome");
         String email = request.getParameter("txtEmail");
-        String telefone = request.getParameter("txtLogin");
+        String telefone = request.getParameter("txtPhone");
         String password = request.getParameter("txtSenha");
 
         HttpSession session = request.getSession();
@@ -29,11 +29,15 @@ public class CadastroServlet extends HttpServlet {
         try {
             Usuario usuario = cadastroController.createNewUser(
                 username, name, email, telefone, password
-            )
+            );
             session.setAttribute("userInfo", usuario);
+            session.setAttribute("loggedIn", true);
+            session.setAttribute("userMessage", "User created successfully");
+            response.sendRedirect("./index.jsp");
         } catch (UserAlreadyExistsException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             session.setAttribute("userMessage", "Oops, user with this username already exists");
+            response.sendRedirect("./cadastro.jsp");
         }
     }
 }
