@@ -13,7 +13,7 @@ Ou utilize o script `../install-glassfish.sh`
 
 Execute `./recover-sql-local.sh` para criar e atualizar o banco de dados (obs: é realizado um DROP na tabela, utilize com precaução)
 
-No final, acesse `localhost:8080/CheckLogin/`
+No final, acesse `localhost:8080/Usuario/`
 
 ## TODO
 - [ ] Parametrizar o context.xml
