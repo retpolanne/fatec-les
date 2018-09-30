@@ -47,23 +47,21 @@ public class AlunoServlet extends HttpServlet {
         } catch (GenericDAOException e) {
             session.setAttribute("message", "Erro criando lista de alunos");
         }
-        String idTxt = request.getParameter("txtId");
-        if (idTxt == null)
-            idTxt = "0";
-        long id = Long.parseLong(idTxt);
-        Aluno aluno = new Aluno();
-        if (id != 0)
-            aluno.setId(id);
-        else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            session.setAttribute("message", "Algo deu errado!");
-        }
 
         String cmd = request.getParameter("cmd");
         
-        if (cmd == null) {
-            session.setAttribute("message", "Algo deu errado!");
-        } else {
+        if (cmd != null) {
+            String idTxt = request.getParameter("txtId");
+            if (idTxt == null)
+                idTxt = "0";
+            long id = Long.parseLong(idTxt);
+            Aluno aluno = new Aluno();
+            if (id != 0)
+                aluno.setId(id);
+            else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                session.setAttribute("message", "Algo deu errado!");
+            }
             switch (cmd) {
                 case "pesquisar":
                     try {
@@ -127,7 +125,7 @@ public class AlunoServlet extends HttpServlet {
         String cmd = request.getParameter("cmd");
         
         if (cmd == null) {
-            session.setAttribute("message", "Algo deu errado!");
+            session.setAttribute("message", "Algo deu errado! Cmd nulo");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             switch (cmd) {
@@ -160,7 +158,7 @@ public class AlunoServlet extends HttpServlet {
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    session.setAttribute("message", "Algo deu errado!");
+                    session.setAttribute("message", "Algo deu errado!" + cmd);
             }
             this.doGet(request, response);
         }
