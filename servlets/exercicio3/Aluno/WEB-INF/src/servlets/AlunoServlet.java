@@ -78,12 +78,10 @@ public class AlunoServlet extends HttpServlet {
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    session.setAttribute("message", "Algo deu errado!");
+                    session.setAttribute("message", "Algo deu errado no cmd! Cmd enviado " + cmd);
             }
         }
-        ServletContext sc = this.getServletContext();
-        RequestDispatcher rd = sc.getRequestDispatcher("/aluno.jsp");
-        rd.include(request, response);
+        response.sendRedirect("/Aluno");
     }
 
     @Override
@@ -158,9 +156,9 @@ public class AlunoServlet extends HttpServlet {
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    session.setAttribute("message", "Algo deu errado!" + cmd);
+                    session.setAttribute("message", "Algo deu errado no cmd!" + cmd);
             }
-            this.doGet(request, response);
+            response.sendRedirect("/Aluno");
         }
     }
 }

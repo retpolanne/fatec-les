@@ -27,7 +27,7 @@
                     aluno = new Aluno();
                 }
             %>
-            <form action="/Aluno" method="POST">
+            <form action="/Aluno/AlunoController" method="POST">
                 <p>ID: <input type="text" name="txtId" value="<%= aluno.getId()%>"/></p>
                 <p>RA: <input type="text" name="txtRa" value="<%= aluno.getRa()%>"/></p>
                 <p>Nome: <input type="text" name="txtNome" value="<%= aluno.getNome()%>"/></p>
@@ -48,7 +48,7 @@
         </div>
         <div class="container" id="aluno-pesquisa">
             <h4>Pesquisar aluno</h4>
-            <form action="/Aluno" method="GET">
+            <form action="/Aluno/AlunoController" method="GET">
                 Digite o ID: <input id="search" type="search" name="txtId"/>
                 <button class="btn waves-effect waves-light" type="submit" name="cmd" value="pesquisar">
                     Pesquisar 

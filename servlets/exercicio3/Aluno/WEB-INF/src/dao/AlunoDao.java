@@ -56,7 +56,7 @@ public class AlunoDao implements AlunoDaoInterface {
     public Aluno search (long id) throws GenericDAOException {
         Aluno foundAluno = null;
 
-        String sql = "SELECT * FROM ALUNOS ID = ?";
+        String sql = "SELECT * FROM ALUNOS WHERE ID = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setLong(1, id);
@@ -80,7 +80,7 @@ public class AlunoDao implements AlunoDaoInterface {
                 );
             }
         } catch (SQLException e) {
-            throw new GenericDAOException("Error searching aluno", e);
+            throw new GenericDAOException("Error searching aluno " + id, e);
         }
         return foundAluno;
     }
