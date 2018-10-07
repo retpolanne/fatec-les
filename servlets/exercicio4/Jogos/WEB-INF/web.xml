@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="3.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  
+  <!-- Backends -->
+  <servlet>
+    <servlet-name>JogosController</servlet-name>
+    <servlet-class>servlets.JogosServlet</servlet-class>
+  </servlet>
+
+  <!--Frontends-->
+  <servlet>
+    <servlet-name>Jogos</servlet-name>
+    <jsp-file>/jogos.jsp</jsp-file>
+  </servlet>
+
+  <!--Front/Back Mappings -->
+  <servlet-mapping>
+    <servlet-name>Jogos</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JogosController</servlet-name>
+    <url-pattern>/JogosController</url-pattern>
+  </servlet-mapping>
+</web-app>
