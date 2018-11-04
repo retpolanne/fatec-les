@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="3.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  
+  <!-- Backends -->
+  <servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>controllers.Controller</servlet-class>
+  </servlet>
+
+  <!--Frontends-->
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <jsp-file>/login.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>Noticias</servlet-name>
+    <jsp-file>/noticias.jsp</jsp-file>
+  </servlet>
+    <servlet>
+    <servlet-name>Jornal</servlet-name>
+    <jsp-file>/jornal.jsp</jsp-file>
+  </servlet>
+    <servlet>
+    <servlet-name>Erro</servlet-name>
+    <jsp-file>/erro.jsp</jsp-file>
+  </servlet>
+  <!--Front/Back Mappings -->
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>Noticias</servlet-name>
+    <url-pattern>/Noticias</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Jornal</servlet-name>
+    <url-pattern>/Jornal</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Erro</servlet-name>
+    <url-pattern>/Erro</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/Controller</url-pattern>
+  </servlet-mapping>
+</web-app>
